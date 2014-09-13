@@ -17,7 +17,10 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="80dp"
-        android:text="Minecraftify!"/>
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/minecraft_minecraftify_button"/>
 
 </RelativeLayout>
