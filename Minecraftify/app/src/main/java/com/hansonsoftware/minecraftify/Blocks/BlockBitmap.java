@@ -118,7 +118,7 @@ public class BlockBitmap {
                 int y = row*this.subdivisionWidth;
 
                 Block b = this.blocks[row][col];
-                String pathToTexture = texturesDirectory + b.getFile();
+                String pathToTexture = texturesDirectory + b.toString()+".png";
                 Bitmap blockTexture = BitmapFactory.decodeFile(pathToTexture);
                 blockTexture = Bitmap.createScaledBitmap(blockTexture,subdivisionWidth, subdivisionWidth, true);
                 int[] texturePixels = new int[subdivisionWidth*subdivisionWidth];

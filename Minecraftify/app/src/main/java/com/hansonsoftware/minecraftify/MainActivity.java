@@ -26,7 +26,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        BlockBitmap blockBitmap = PicConverter.testConverter(getResources().openRawResource(R.raw.testphoto1));
+        //BlockBitmap blockBitmap = PicConverter.testConverter(getResources().openRawResource(R.raw.testphoto1));
+        /*
         try {
             Bitmap gridOfTextures = blockBitmap.buildBlockGrid("res/drawable-mdpi/");
         } catch (BlockBitmapNotBuiltException e) {
@@ -37,6 +38,7 @@ public class MainActivity extends Activity {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        */
 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
