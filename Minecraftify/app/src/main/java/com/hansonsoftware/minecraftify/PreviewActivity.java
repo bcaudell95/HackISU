@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -71,5 +72,10 @@ public class PreviewActivity extends Activity {
                 previewPicture.setRotation(90);
             }
         }
+    }
+
+    public void beginAfterMinecraftifyActivity(View view) {
+        Intent intent = new Intent(PreviewActivity.this, AfterMinecraftifyActivity.class);
+        startActivity(intent);
     }
 }
