@@ -47,11 +47,11 @@ public enum block_textures {
     Dirt("Dirt.png", new Color(134, 96, 67)),
     Bedrock("Bedrock.png", new Color(84, 84, 84)),
     Gravel("Gravel.png", new Color(127, 124, 123)),
-    Glowstone("Growstone.png", new Color(144, 118, 70)),
+    Glowstone("Glowstone.png", new Color(144, 118, 70)),
     Netherrack("Netherrack.png", new Color(111, 54, 53)),
     SoulSand("SoulSand.png", new Color(85, 64, 52)),
     Melon("Melon.png", new Color(151, 154, 37)),
-    Snow("Snow.png", new Color(240, 251, 251)),
+    Snow("Snow.png", new Color(240, 251, 251))
     ;
 
     private String fileName;
