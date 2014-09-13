@@ -1,11 +1,6 @@
-package com.hansonsoftware.minecraftify;
+package com.hansonsoftware.minecraftify.Blocks;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-
-public enum block_textures {
+public enum Block {
 
     LapisLazuliBlock("LapisLazuliBlock.png", new Color(29,71,166)),
     GoldBlock("GoldBlock.png", new Color(249, 236, 79)),
@@ -51,14 +46,37 @@ public enum block_textures {
     Netherrack("Netherrack.png", new Color(111, 54, 53)),
     SoulSand("SoulSand.png", new Color(85, 64, 52)),
     Melon("Melon.png", new Color(151, 154, 37)),
-    Snow("Snow.png", new Color(240, 251, 251))
+    Snow("Snow.png", new Color(240, 251, 251)),
+    Lava("Lava.png", new Color(217, 105, 26))
     ;
 
     private String fileName;
 	private Color color;
 
-    block_textures(String fileName, Color color) {
+    Block() {
+        fileName = "";
+        color = new Color(0,0,0);
+    }
+
+    Block(String fileName, Color color) {
         this.fileName = fileName;
         this.color = color;
+    }
+
+    public static Block bestMatchedBlock(Color color) {
+        Block closestBlock = null;
+        double shortestDistance = -1;
+        for (Block b : Block.values()) {
+            double distance = color.distance(b.getColor());
+            if (distance < shortestDistance || shortestDistance==-1) {
+                shortestDistance = distance;
+                closestBlock = b;
+            }
+        }
+        return closestBlock;
+    }
+
+    public Color getColor() {
+        return color;
     }
 }
