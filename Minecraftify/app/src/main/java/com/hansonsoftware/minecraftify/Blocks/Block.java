@@ -5,7 +5,6 @@ import android.graphics.Color;
 import com.hansonsoftware.minecraftify.R;
 
 public enum Block {
-
     LapisLazuliBlock(R.drawable.lapislazuliblock, new RgbColor(29,71,166)),
     GoldBlock(R.drawable.goldblock, new RgbColor(249, 236, 79)),
     IronBlock(R.drawable.ironblock, new RgbColor(219, 219, 219)),
@@ -81,9 +80,5 @@ public enum Block {
 
     public RgbColor getColor() {
         return color;
-    }
-
-    public String getFile() {
-        return fileName;
     }
 }
