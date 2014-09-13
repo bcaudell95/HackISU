@@ -1,7 +1,14 @@
 package com.hansonsoftware.minecraftify.Blocks;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapRegionDecoder;
+import android.graphics.Color;
+import android.graphics.Rect;
+
 import com.hansonsoftware.minecraftify.Blocks.Block;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,5 +55,53 @@ public class BlockBitmap {
         this.blocks[row][col] = b;
 
         this.blockCounter.put(b, blockCounter.get(b)+1); //increments the counter for that block type
+    }
+
+    public void buildBlocksFromImage(InputStream imageStream) {
+
+        BitmapRegionDecoder brp = null;
+
+        try {
+            brp = BitmapRegionDecoder.newInstance(imageStream, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for(int row = 0;row<this.rowCount;row++) {
+            for(int col=0;col<this.columnCount; col++) {
+                int left = col*subdivisionWidth, top = row*subdivisionWidth;
+                int right = left + subdivisionWidth, bottom = top  + subdivisionWidth;
+                Bitmap region = brp.decodeRegion(new Rect(left, top, right, bottom), null);
+                RgbColor averageColor = calculateAverageColor(region);
+                Block bestBlock = Block.bestMatchedBlock(averageColor);
+                this.setBlockAtIndices(row, col, bestBlock);
+            }
+        }
+
+        return;
+    }
+
+    private RgbColor calculateAverageColor(Bitmap pixels) {
+        long redBucket=0, greenBucket=0, blueBucket=0;
+        long pixelCount = pixels.getWidth() * pixels.getHeight();
+
+        for(int x=0;x<pixels.getWidth();x++) {
+            for(int y=0;y<pixels.getHeight();y++) {
+                int currPixel = pixels.getPixel(x,y);
+                redBucket += Color.red(currPixel);
+                greenBucket += Color.green(currPixel);
+                blueBucket += Color.blue(currPixel);
+            }
+        }
+
+        int redAverage = (int) (redBucket/pixelCount);
+        int greenAverage = (int) (greenBucket/pixelCount);
+        int blueAverage = (int) (blueBucket/pixelCount);
+
+        return new RgbColor(redAverage, greenAverage, blueAverage);
+    }
+
+    public int getBlockCount(Block b) {
+        return this.blockCounter.get(b);
     }
 }

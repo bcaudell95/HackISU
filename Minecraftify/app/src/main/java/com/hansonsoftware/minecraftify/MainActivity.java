@@ -12,6 +12,7 @@ import android.view.WindowManager;
 
 import com.hansonsoftware.minecraftify.Blocks.Block;
 import com.hansonsoftware.minecraftify.Blocks.BlockBitmap;
+import com.hansonsoftware.minecraftify.PictureConverter.PicConverter;
 
 
 public class MainActivity extends Activity {
@@ -20,11 +21,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        BlockBitmap bitmap = new BlockBitmap(100, 120, 20);
-        bitmap.setBlockAtIndices(0,0, Block.Bedrock);
-        bitmap.setBlockAtIndices(0,1, Block.DiamondBlock);
-        bitmap.setBlockAtIndices(0,2,Block.Bedrock);
-        bitmap.setBlockAtIndices(1,0,Block.BlueWool);
+        BlockBitmap blockBitmap = PicConverter.testConverter(getResources().openRawResource(R.raw.testphoto1));
 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
