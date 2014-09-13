@@ -1,6 +1,7 @@
 package com.hansonsoftware.minecraftify.Blocks;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.BitmapRegionDecoder;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -25,6 +26,8 @@ public class BlockBitmap {
     private int lastColumnWidth, lastRowHeight;
 
     private Map<Block, Integer> blockCounter = new HashMap<Block, Integer>();
+
+    private InputStream originalImageInputStream;
 
     public BlockBitmap(int imageWidth, int imageHeight, int subdivisionWidth) {
         this.imageWidth = imageWidth;
@@ -58,6 +61,8 @@ public class BlockBitmap {
     }
 
     public void buildBlocksFromImage(InputStream imageStream) {
+
+        this.originalImageInputStream = imageStream;
 
         BitmapRegionDecoder brp = null;
 
@@ -99,6 +104,31 @@ public class BlockBitmap {
         int blueAverage = (int) (blueBucket/pixelCount);
 
         return new RgbColor(redAverage, greenAverage, blueAverage);
+    }
+
+    public Bitmap buildBlockGrid(String texturesDirectory) throws BlockBitmapNotBuiltException {
+
+        if(this.originalImageInputStream==null) throw new BlockBitmapNotBuiltException();
+
+        Bitmap image = BitmapFactory.decodeStream(this.originalImageInputStream);
+
+        for(int row=0;row<this.rowCount;row++) {
+            for(int col=0;col<this.columnCount;col++) {
+                int x = col*this.subdivisionWidth;
+                int y = row*this.subdivisionWidth;
+
+                Block b = this.blocks[row][col];
+                String pathToTexture = texturesDirectory + b.getFile();
+                Bitmap blockTexture = BitmapFactory.decodeFile(pathToTexture);
+                blockTexture = Bitmap.createScaledBitmap(blockTexture,subdivisionWidth, subdivisionWidth, true);
+                int[] texturePixels = new int[subdivisionWidth*subdivisionWidth];
+                blockTexture.getPixels(texturePixels,0,blockTexture.getWidth(), 0,0, subdivisionWidth, subdivisionWidth);
+
+                image.setPixels(texturePixels,0,image.getWidth(),x,y,subdivisionWidth,subdivisionWidth);
+            }
+        }
+
+        return image;
     }
 
     public int getBlockCount(Block b) {

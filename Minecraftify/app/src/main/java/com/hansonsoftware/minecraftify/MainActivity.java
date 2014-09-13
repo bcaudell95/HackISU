@@ -2,6 +2,7 @@ package com.hansonsoftware.minecraftify;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,7 +13,11 @@ import android.view.WindowManager;
 
 import com.hansonsoftware.minecraftify.Blocks.Block;
 import com.hansonsoftware.minecraftify.Blocks.BlockBitmap;
+import com.hansonsoftware.minecraftify.Blocks.BlockBitmapNotBuiltException;
 import com.hansonsoftware.minecraftify.PictureConverter.PicConverter;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 
 public class MainActivity extends Activity {
@@ -22,6 +27,16 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         BlockBitmap blockBitmap = PicConverter.testConverter(getResources().openRawResource(R.raw.testphoto1));
+        try {
+            Bitmap gridOfTextures = blockBitmap.buildBlockGrid("res/drawable-mdpi/");
+        } catch (BlockBitmapNotBuiltException e) {
+            e.printStackTrace();
+        }
+        try {
+            FileOutputStream out = new FileOutputStream("TEST_GRID.png");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
