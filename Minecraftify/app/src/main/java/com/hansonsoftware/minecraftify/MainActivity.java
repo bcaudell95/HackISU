@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        BlockBitmap blockBitmap = PicConverter.testConverter(getResources().openRawResource(R.raw.testphoto1));
+        //BlockBitmap blockBitmap = PicConverter.testConverter(getResources().openRawResource(R.raw.testphoto1));
 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);

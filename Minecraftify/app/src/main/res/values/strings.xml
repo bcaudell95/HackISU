@@ -7,5 +7,6 @@
     <string name="capture">Capture</string>
     <string name="title_activity_after_minecraftify">AfterMinecraftify</string>
     <string name="title_activity_build_this">BuildThisActivity</string>
+    <string name="content_desc_listImage">listImage</string>
 
 </resources>
